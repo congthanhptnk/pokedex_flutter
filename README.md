@@ -1,6 +1,6 @@
 # pokedex_flutter
 
-A new Flutter project.
+A Pokedex application built for iOS using Flutter
 
 ## Getting Started
 

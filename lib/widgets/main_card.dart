@@ -14,7 +14,7 @@ class MainCard extends StatelessWidget {
     @required this.abilities,
   });
 
-  List<Widget> _buildTypes(List<String> list) {
+  List<Widget> _buildTypes(List<String> list, BuildContext context) {
     List<Widget> listTypes = [];
     for (String i in list) {
       listTypes.add(
@@ -22,7 +22,7 @@ class MainCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Colors.blue,
+            color: Theme.of(context).accentColor,
           ),
           child: Text(i),
         ),
@@ -45,26 +45,70 @@ class MainCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Text('Type'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildTypes(this.types),
-              )
-            ],
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            padding: EdgeInsets.only(top: 4),
+            decoration: BoxDecoration(
+              borderRadius: myBorderRadius,
+              color: Theme.of(context).primaryColorLight,
+            ),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Type',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 4, left: 1, bottom: 1, right: 1),
+                  padding: EdgeInsets.only(top: 4, bottom: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: myBorderRadius,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: _buildTypes(this.types, context),
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(
-            height: 32,
+            height: 16,
           ),
-          Column(
-            children: <Widget>[
-              Text('Type'),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildTypes(this.abilities),
-              )
-            ],
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            padding: EdgeInsets.only(top: 4),
+            decoration: BoxDecoration(
+              borderRadius: myBorderRadius,
+              color: Theme.of(context).primaryColorLight,
+            ),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Abilities',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 4, left: 1, bottom: 1, right: 1),
+                  padding: EdgeInsets.only(top: 4, bottom: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: myBorderRadius,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: _buildTypes(this.abilities, context),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),

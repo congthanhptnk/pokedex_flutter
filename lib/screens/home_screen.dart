@@ -12,10 +12,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: MainCard(
-            name: 'Bulbasaur',
-            spriteUrl: 'assets/images/bulbasaur_sprite.png',
-            types: ['grass', 'poison'],
-            abilities: ['levitate', 'clear body']),
+            name: 'Jolteon',
+            spriteUrl: 'assets/images/jolteon_sprite.png',
+            types: ['Electric'],
+            abilities: ['Volt Absorb', 'Quick Feet']),
       ),
     );
   }

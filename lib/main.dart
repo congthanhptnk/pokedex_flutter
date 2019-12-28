@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/models/team.dart';
 import 'package:pokedex_flutter/screens/home_screen/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +18,10 @@ class MyApp extends StatelessWidget {
         accentColor: Color.fromARGB(255, 246, 115, 74),
         scaffoldBackgroundColor: Color.fromARGB(255, 233, 237, 240),
       ),
-      home: HomeScreen(),
+      home: ChangeNotifierProvider<Team>(
+        create: (context) => Team(),
+        child: HomeScreen(),
+      ),
     );
   }
 }

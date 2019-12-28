@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/models/team.dart';
 import 'package:pokedex_flutter/screens/home_screen/scroll_cards.dart';
 import 'package:pokedex_flutter/widgets/main_card.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -32,12 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageCtrl = PageController(
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
+  MainCard focusedCard;
 
   @override
   void initState() {
+    focusedCard = cards[0];
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;
+        focusedCard = cards[_pageCtrl.page.round()];
       });
     });
 
@@ -71,22 +76,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: cards.length,
                 itemBuilder: (context, int curIndex) {
-                  return ScrollCards(
-                      currentIndex: curIndex,
-                      currentPage: currentPage,
-                      card: cards[curIndex]);
+                  return ScrollCard(
+                    currentIndex: curIndex,
+                    currentPage: currentPage,
+                    card: cards[curIndex],
+                  );
                 },
               ),
               margin: EdgeInsets.only(top: 32, bottom: 0, right: 0, left: 0),
             ),
-            IconButton(
-              color: Theme.of(context).primaryColorDark,
-              icon: Icon(
-                Icons.favorite,
-              ),
-              iconSize: 40,
-              onPressed: () {
-                print('clicked');
+            Consumer<Team>(
+              builder: (context, team, child) {
+                return IconButton(
+                  color: Theme.of(context).primaryColorDark,
+                  icon: Icon(
+                    Icons.favorite,
+                  ),
+                  iconSize: 40,
+                  onPressed: () {
+                    team.add(focusedCard.name);
+                    print('clicked ${team.names}');
+                  },
+                );
               },
             )
           ],

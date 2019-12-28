@@ -5,7 +5,6 @@ class Pokemon {
   Pokemon({this.name, this.url});
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
-    print(json['name']);
     return Pokemon(
       name: json['name'],
       url: json['url'],

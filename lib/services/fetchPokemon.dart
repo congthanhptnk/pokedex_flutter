@@ -8,7 +8,6 @@ Future<Pokemons> fetchPokemons() async {
 
   if (response.statusCode == 200) {
     // If server returns an OK response, parse the JSON.
-    print(response.statusCode);
     return Pokemons.fromJson(json.decode(response.body));
   } else {
     // If that response was not OK, throw an error.

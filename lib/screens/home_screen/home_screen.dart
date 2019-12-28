@@ -12,41 +12,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<MainCard> cards = [
-    MainCard(
-      name: 'Jolteon',
-      spriteUrl: 'assets/images/jolteon_sprite.png',
-      types: ['Electric'],
-      abilities: ['Volt Absorb', 'Quick Feet'],
-    ),
-    MainCard(
-      name: 'Flareon',
-      spriteUrl: 'assets/images/flareon_sprite.png',
-      types: ['Fire'],
-      abilities: ['Flash Fire', 'Guts'],
-    ),
-    MainCard(
-      name: 'Leafeon',
-      spriteUrl: 'assets/images/leafeon_sprite.png',
-      types: ['Grass'],
-      abilities: ['Leaf Guard', 'Clorophyll'],
-    )
-  ];
-
   final PageController _pageCtrl = PageController(
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
-  MainCard focusedCard;
+  // MainCard focusedCard;
   Future<Pokemons> pokemons;
 
   @override
   void initState() {
-    focusedCard = cards[0];
     pokemons = fetchPokemons();
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;
-        focusedCard = cards[_pageCtrl.page.round()];
       });
     });
 
@@ -75,19 +52,33 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 650,
               width: double.infinity,
-              child: PageView.builder(
-                controller: _pageCtrl,
-                scrollDirection: Axis.horizontal,
-                itemCount: cards.length,
-                itemBuilder: (context, int curIndex) {
-                  return ScrollCard(
-                    currentIndex: curIndex,
-                    currentPage: currentPage,
-                    card: cards[curIndex],
-                  );
+              margin: EdgeInsets.only(top: 32, bottom: 0, right: 0, left: 0),
+              child: FutureBuilder<Pokemons>(
+                future: pokemons,
+                builder: (context, snap) {
+                  if (snap.hasData) {
+                    return PageView.builder(
+                      controller: _pageCtrl,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snap.data.pokemons.length,
+                      itemBuilder: (context, int curIndex) {
+                        return ScrollCard(
+                          currentIndex: curIndex,
+                          currentPage: currentPage,
+                          card: MainCard(
+                            name: '${snap.data.pokemons[curIndex].name}',
+                            spriteUrl: 'assets/images/jolteon_sprite.png',
+                            types: ['Electric'],
+                            abilities: ['Volt Absorb', 'Quick Feet'],
+                          ),
+                        );
+                      },
+                    );
+                  }
+
+                  return CircularProgressIndicator();
                 },
               ),
-              margin: EdgeInsets.only(top: 32, bottom: 0, right: 0, left: 0),
             ),
             Consumer<Team>(
               builder: (context, team, child) {
@@ -98,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   iconSize: 40,
                   onPressed: () {
-                    team.add(focusedCard.name);
+                    // team.add(focusedCard.name);
                     print('clicked ${team.names}');
                   },
                 );

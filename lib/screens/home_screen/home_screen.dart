@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/models/pokemons.dart';
 import 'package:pokedex_flutter/models/team.dart';
 import 'package:pokedex_flutter/screens/home_screen/scroll_cards.dart';
+import 'package:pokedex_flutter/services/fetchPokemon.dart';
 import 'package:pokedex_flutter/widgets/main_card.dart';
 import 'package:provider/provider.dart';
 
@@ -35,10 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
   MainCard focusedCard;
+  Future<Pokemons> pokemons;
 
   @override
   void initState() {
     focusedCard = cards[0];
+    pokemons = fetchPokemons();
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;

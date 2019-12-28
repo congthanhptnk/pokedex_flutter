@@ -17,8 +17,8 @@ class ScrollCard extends StatelessWidget {
       child: Transform(
         transform: Matrix4.identity()
           ..setEntry(3, 2, 0.003)
-          ..scale((1 - relativePos.abs()).clamp(0.2, 0.6) + 0.4)
-          ..rotateY(relativePos),
+          ..scale((1 - relativePos.abs()).clamp(0.2, 0.6) + 0.4),
+        // ..rotateY(relativePos),
         // ..rotateZ(relativePos),
         alignment:
             relativePos >= 0 ? Alignment.centerLeft : Alignment.centerRight,

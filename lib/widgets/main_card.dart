@@ -142,7 +142,7 @@ class MainCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundImage: AssetImage(
+                        backgroundImage: NetworkImage(
                           this.spriteUrl,
                         ),
                         backgroundColor:
@@ -168,7 +168,7 @@ class MainCard extends StatelessWidget {
                     borderRadius: myBorderRadius,
                   ),
                   child: Image(
-                    image: AssetImage(this.spriteUrl),
+                    image: NetworkImage(this.spriteUrl),
                     fit: BoxFit.fitWidth,
                   ),
                 ),

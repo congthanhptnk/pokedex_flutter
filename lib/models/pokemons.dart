@@ -1,8 +1,14 @@
+import 'package:flutter/material.dart';
+
 class Pokemon {
   final String name;
   final String url;
+  String sprite;
+  String primaryType;
+  String secondaryType;
+  List<String> abilities;
 
-  Pokemon({this.name, this.url});
+  Pokemon({this.name, this.url, this.sprite});
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
     return Pokemon(
@@ -12,7 +18,7 @@ class Pokemon {
   }
 }
 
-class Pokemons {
+class Pokemons extends ChangeNotifier {
   final String next;
   final List<Pokemon> pokemons;
 

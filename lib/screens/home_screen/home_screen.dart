@@ -16,11 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
   // MainCard focusedCard;
-  Future<Pokemons> pokemons;
 
   @override
   void initState() {
-    pokemons = fetchPokemons();
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;
@@ -54,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               margin: EdgeInsets.only(top: 32, bottom: 0, right: 0, left: 0),
               child: FutureBuilder<Pokemons>(
-                future: pokemons,
+                future: fetchPokemons(),
                 builder: (context, snap) {
                   if (snap.hasData) {
                     return PageView.builder(
@@ -62,13 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snap.data.pokemons.length,
                       itemBuilder: (context, int curIndex) {
+                        print(snap.data.pokemons[curIndex].sprite);
                         return ScrollCard(
                           currentIndex: curIndex,
                           currentPage: currentPage,
                           card: MainCard(
                             name: '${snap.data.pokemons[curIndex].name}',
-                            spriteUrl: 'assets/images/jolteon_sprite.png',
-                            types: ['Electric'],
+                            spriteUrl: '${snap.data.pokemons[curIndex].sprite}',
+                            types: [snap.data.pokemons[curIndex].primaryType],
                             abilities: ['Volt Absorb', 'Quick Feet'],
                           ),
                         );

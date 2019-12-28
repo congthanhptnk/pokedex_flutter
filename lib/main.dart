@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter/screens/home_screen.dart';
+import 'package:pokedex_flutter/screens/home_screen/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,10 +10,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Color.fromARGB(255, 255, 160, 0),
+        primaryColor: Color.fromARGB(255, 245, 98, 52),
         primaryColorDark: Color.fromARGB(255, 198, 113, 0),
-        primaryColorLight: Color.fromARGB(255, 255, 209, 73),
-        accentColor: Color.fromARGB(255, 255, 214, 0),
+        primaryColorLight: Color.fromARGB(255, 247, 143, 110),
+        accentColor: Color.fromARGB(255, 246, 115, 74),
         scaffoldBackgroundColor: Color.fromARGB(255, 233, 237, 240),
       ),
       home: HomeScreen(),

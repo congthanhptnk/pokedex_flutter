@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/models/color_palete.dart';
 
 class MainCard extends StatelessWidget {
   final String name;
@@ -6,13 +7,14 @@ class MainCard extends StatelessWidget {
   final List<String> types;
   final List<String> abilities;
   final BorderRadiusGeometry myBorderRadius = BorderRadius.circular(10);
+  final ColorPalete _color;
 
   MainCard({
     @required this.name,
     @required this.spriteUrl,
     @required this.types,
     @required this.abilities,
-  });
+  }) : _color = typeColor[types[0].toLowerCase()];
 
   List<Widget> _buildTypes(List<String> list, BuildContext context) {
     List<Widget> listTypes = [];
@@ -22,7 +24,7 @@ class MainCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).accentColor,
+            color: _color.secondary,
           ),
           child: Text(i),
         ),
@@ -38,7 +40,7 @@ class MainCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: myBorderRadius,
         border: Border.all(
-          color: Theme.of(context).primaryColorLight,
+          color: _color.primary,
           width: 5,
         ),
       ),
@@ -50,7 +52,7 @@ class MainCard extends StatelessWidget {
             padding: EdgeInsets.only(top: 4),
             decoration: BoxDecoration(
               borderRadius: myBorderRadius,
-              color: Theme.of(context).primaryColorLight,
+              color: _color.primary,
             ),
             child: Column(
               children: <Widget>[
@@ -77,14 +79,14 @@ class MainCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 16,
+            height: 8,
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             padding: EdgeInsets.only(top: 4),
             decoration: BoxDecoration(
               borderRadius: myBorderRadius,
-              color: Theme.of(context).primaryColorLight,
+              color: _color.primary,
             ),
             child: Column(
               children: <Widget>[
@@ -119,9 +121,9 @@ class MainCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+      height: double.infinity,
       child: Card(
-        color: Theme.of(context).primaryColor,
+        color: _color.background,
         shape: RoundedRectangleBorder(borderRadius: myBorderRadius),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -134,7 +136,7 @@ class MainCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     borderRadius: myBorderRadius,
-                    color: Theme.of(context).primaryColorLight,
+                    color: _color.primary,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,7 +164,7 @@ class MainCard extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(top: 8, bottom: 8),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorLight,
+                    color: _color.primary,
                     borderRadius: myBorderRadius,
                   ),
                   child: Image(

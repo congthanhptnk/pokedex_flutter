@@ -15,12 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageCtrl = PageController(
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
-  Future pokemons;
+  Future<Pokemons> pokemonsFuture;
   // MainCard focusedCard;
 
   @override
   void initState() {
-    pokemons = fetchPokemons();
+    pokemonsFuture = fetchPokemons();
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;
@@ -54,24 +54,23 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               margin: EdgeInsets.only(top: 32, bottom: 0, right: 0, left: 0),
               child: FutureBuilder<Pokemons>(
-                future: pokemons,
+                future: pokemonsFuture,
                 builder: (context, snap) {
-                  print("yeeha");
                   if (snap.hasData) {
                     return PageView.builder(
                       controller: _pageCtrl,
                       scrollDirection: Axis.horizontal,
                       itemCount: snap.data.pokemons.length,
                       itemBuilder: (context, int curIndex) {
-                        // print(snap.data.pokemons[curIndex].sprite);
                         return ScrollCard(
                           currentIndex: curIndex,
                           currentPage: currentPage,
                           card: MainCard(
                             name: '${snap.data.pokemons[curIndex].name}',
                             spriteUrl: '${snap.data.pokemons[curIndex].sprite}',
-                            types: ['Electric'],
+                            types: snap.data.pokemons[curIndex].types,
                             abilities: ['Volt Absorb', 'Quick Feet'],
+                            id: snap.data.pokemons[curIndex].id,
                           ),
                         );
                       },

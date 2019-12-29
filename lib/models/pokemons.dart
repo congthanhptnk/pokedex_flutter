@@ -4,9 +4,10 @@ class Pokemon {
   final String name;
   final String url;
   String sprite;
-  String primaryType;
-  String secondaryType;
+  List<String> types;
   List<String> abilities;
+  int id;
+  String img;
 
   Pokemon({this.name, this.url, this.sprite});
 

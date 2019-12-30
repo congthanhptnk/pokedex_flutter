@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:pokedex_flutter/models/team.dart';
 import 'package:pokedex_flutter/screens/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Colors.black38);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

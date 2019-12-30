@@ -19,7 +19,6 @@ class MainCard extends StatelessWidget {
   }) : _color = typeColor[types[0].toLowerCase()];
 
   List<Widget> _buildTypes(List<String> list, BuildContext context) {
-    print(id);
     List<Widget> listTypes = [];
     for (String i in list) {
       listTypes.add(

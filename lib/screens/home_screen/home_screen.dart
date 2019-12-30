@@ -28,39 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCards(BuildContext context) {
-    // return FutureBuilder<Pokemons>(
-    //   builder: (context, snap) {
-    //     if (snap.hasData) {
-    //       return PageView.builder(
-    //         controller: _pageCtrl,
-    //         scrollDirection: Axis.horizontal,
-    //         itemCount: snap.data.pokemons.length,
-    //         itemBuilder: (context, int curIndex) {
-    //           return ScrollCard(
-    //             currentIndex: curIndex,
-    //             currentPage: currentPage,
-    //             card: MainCard(
-    //               name: '${snap.data.pokemons[curIndex].name}',
-    //               spriteUrl: '${snap.data.pokemons[curIndex].sprite}',
-    //               types: snap.data.pokemons[curIndex].types,
-    //               abilities: ['Volt Absorb', 'Quick Feet'],
-    //               id: snap.data.pokemons[curIndex].id,
-    //             ),
-    //           );
-    //         },
-    //       );
-    //     }
-
-    //     return CircularProgressIndicator();
-    //   },
-    // );
-
     return Consumer<Pokemons>(
       builder: (context, pokemons, child) {
         return PageView.builder(
           controller: _pageCtrl,
           scrollDirection: Axis.horizontal,
           itemCount: pokemons.pokemons.length,
+          onPageChanged: (int curIndex) {
+            if ((curIndex + 2) == pokemons.pokemons.length)
+              pokemons.getAllPokemons();
+          },
           itemBuilder: (context, int curIndex) {
             return ScrollCard(
               currentIndex: curIndex,
@@ -82,18 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.list),
-      //       title: Text('List'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.people),
-      //       title: Text('data'),
-      //     ),
-      //   ],
-      // ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

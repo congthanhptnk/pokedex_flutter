@@ -21,10 +21,11 @@ class Pokemon {
 }
 
 class Pokemons extends ChangeNotifier {
+  String next = "";
   final List<Pokemon> _pokemons = [];
+  bool loading;
 
   Pokemons() {
-    print("aaa");
     getAllPokemons();
   }
 
@@ -34,7 +35,8 @@ class Pokemons extends ChangeNotifier {
   }
 
   void getAllPokemons() async {
-    List<Pokemon> list = await fetchPokemons();
+    print("getAll called");
+    List<Pokemon> list = await fetchPokemons(this);
 
     setState(list);
   }

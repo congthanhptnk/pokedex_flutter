@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_flutter/services/fetchPokemon.dart';
 
 class Pokemon {
   final String name;
@@ -20,18 +21,23 @@ class Pokemon {
 }
 
 class Pokemons extends ChangeNotifier {
-  final String next;
-  final List<Pokemon> pokemons;
+  final List<Pokemon> _pokemons = [];
 
-  Pokemons({this.next, this.pokemons});
-
-  factory Pokemons.fromJson(Map<String, dynamic> json) {
-    List<Pokemon> pokeList = [];
-
-    json['results'].forEach((r) {
-      pokeList.add(Pokemon.fromJson(r));
-    });
-
-    return Pokemons(pokemons: pokeList, next: json['next']);
+  Pokemons() {
+    print("aaa");
+    getAllPokemons();
   }
+
+  void setState(List<Pokemon> pokemons) {
+    _pokemons.addAll(pokemons);
+    notifyListeners();
+  }
+
+  void getAllPokemons() async {
+    List<Pokemon> list = await fetchPokemons();
+
+    setState(list);
+  }
+
+  get pokemons => _pokemons;
 }

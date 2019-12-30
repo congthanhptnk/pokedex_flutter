@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/models/pokemons.dart';
 import 'package:pokedex_flutter/models/team.dart';
 import 'package:pokedex_flutter/screens/home_screen/scroll_cards.dart';
-import 'package:pokedex_flutter/services/fetchPokemon.dart';
 import 'package:pokedex_flutter/widgets/main_card.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageCtrl = PageController(
       viewportFraction: 0.8); // Determine the size of out of screen cards
   double currentPage = 0.0;
-  Future<Pokemons> pokemonsFuture;
   // MainCard focusedCard;
 
   @override
   void initState() {
-    pokemonsFuture = fetchPokemons();
     _pageCtrl.addListener(() {
       setState(() {
         currentPage = _pageCtrl.page;
@@ -28,6 +25,58 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     super.initState();
+  }
+
+  Widget _buildCards(BuildContext context) {
+    // return FutureBuilder<Pokemons>(
+    //   builder: (context, snap) {
+    //     if (snap.hasData) {
+    //       return PageView.builder(
+    //         controller: _pageCtrl,
+    //         scrollDirection: Axis.horizontal,
+    //         itemCount: snap.data.pokemons.length,
+    //         itemBuilder: (context, int curIndex) {
+    //           return ScrollCard(
+    //             currentIndex: curIndex,
+    //             currentPage: currentPage,
+    //             card: MainCard(
+    //               name: '${snap.data.pokemons[curIndex].name}',
+    //               spriteUrl: '${snap.data.pokemons[curIndex].sprite}',
+    //               types: snap.data.pokemons[curIndex].types,
+    //               abilities: ['Volt Absorb', 'Quick Feet'],
+    //               id: snap.data.pokemons[curIndex].id,
+    //             ),
+    //           );
+    //         },
+    //       );
+    //     }
+
+    //     return CircularProgressIndicator();
+    //   },
+    // );
+
+    return Consumer<Pokemons>(
+      builder: (context, pokemons, child) {
+        return PageView.builder(
+          controller: _pageCtrl,
+          scrollDirection: Axis.horizontal,
+          itemCount: pokemons.pokemons.length,
+          itemBuilder: (context, int curIndex) {
+            return ScrollCard(
+              currentIndex: curIndex,
+              currentPage: currentPage,
+              card: MainCard(
+                name: '${pokemons.pokemons[curIndex].name}',
+                spriteUrl: '${pokemons.pokemons[curIndex].sprite}',
+                types: pokemons.pokemons[curIndex].types,
+                abilities: ['Volt Absorb', 'Quick Feet'],
+                id: pokemons.pokemons[curIndex].id,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -55,34 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: double.infinity,
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 16, bottom: 0, right: 0, left: 0),
-                child: FutureBuilder<Pokemons>(
-                  future: pokemonsFuture,
-                  builder: (context, snap) {
-                    if (snap.hasData) {
-                      return PageView.builder(
-                        controller: _pageCtrl,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snap.data.pokemons.length,
-                        itemBuilder: (context, int curIndex) {
-                          return ScrollCard(
-                            currentIndex: curIndex,
-                            currentPage: currentPage,
-                            card: MainCard(
-                              name: '${snap.data.pokemons[curIndex].name}',
-                              spriteUrl:
-                                  '${snap.data.pokemons[curIndex].sprite}',
-                              types: snap.data.pokemons[curIndex].types,
-                              abilities: ['Volt Absorb', 'Quick Feet'],
-                              id: snap.data.pokemons[curIndex].id,
-                            ),
-                          );
-                        },
-                      );
-                    }
-
-                    return CircularProgressIndicator();
-                  },
-                ),
+                child: _buildCards(context),
               ),
             ),
             Expanded(

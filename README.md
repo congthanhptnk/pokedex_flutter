@@ -3,15 +3,21 @@
 A Pokedex hybrid application built for mobile devices. This project is an intensive learning project aim to master Dart language and Flutter frameworks. 
 The UI is designed based on Bulbapedia (a wikia for pokemon related content). 
 
-## Getting Started
+## Technologies
 
-This project is a starting point for a Flutter application.
+- Flutter frameworks with external libraries: http, provider, flutter_statisbarcolor
+- Dart language
+- PokeAPI: open source API for all pokemon related information.
+- VSCode for Flutter.
+- Xcode, iOS Simulator, Android Emulator.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Completed:
+- Scrollable pokedex display of individual pokemon. 
+- Animated scroll for smooth transition.
+- Optimized performance with http services in combination with PageView => lazy loading of pages => reduced lag.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Expected:
+- PokemonTeam page: favorited pokemons will be added to the team of 6. The page will display the team, allow removing, editing positions. Animation expected.
+- PokemonView page: Display detailed information of each pokemon with intuitive design and smooth transition from home page. Animation expected

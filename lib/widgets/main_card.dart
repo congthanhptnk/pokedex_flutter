@@ -4,6 +4,7 @@ import 'package:pokedex_flutter/models/color_palete.dart';
 class MainCard extends StatelessWidget {
   final String name;
   final String spriteUrl;
+  final int id;
   final List<String> types;
   final List<String> abilities;
   final BorderRadiusGeometry myBorderRadius = BorderRadius.circular(10);
@@ -14,6 +15,7 @@ class MainCard extends StatelessWidget {
     @required this.spriteUrl,
     @required this.types,
     @required this.abilities,
+    @required this.id,
   }) : _color = typeColor[types[0].toLowerCase()];
 
   List<Widget> _buildTypes(List<String> list, BuildContext context) {
@@ -142,7 +144,7 @@ class MainCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundImage: AssetImage(
+                        backgroundImage: NetworkImage(
                           this.spriteUrl,
                         ),
                         backgroundColor:
@@ -168,7 +170,8 @@ class MainCard extends StatelessWidget {
                     borderRadius: myBorderRadius,
                   ),
                   child: Image(
-                    image: AssetImage(this.spriteUrl),
+                    image: NetworkImage(
+                        'https://pokeres.bastionbot.org/images/pokemon/$id.png'),
                     fit: BoxFit.fitWidth,
                   ),
                 ),

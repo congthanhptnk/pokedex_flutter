@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/widgets/main_card.dart';
 
-class ScrollCards extends StatelessWidget {
+class ScrollCard extends StatelessWidget {
   final int currentIndex;
   final double currentPage;
   final MainCard card;
 
-  ScrollCards({this.currentIndex, this.currentPage, this.card});
+  ScrollCard({this.currentIndex, this.currentPage, this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,9 @@ class ScrollCards extends StatelessWidget {
       width: double.infinity,
       child: Transform(
         transform: Matrix4.identity()
-          // ..setEntry(3, 2, 0.003)
+          ..setEntry(3, 2, 0.003)
           ..scale((1 - relativePos.abs()).clamp(0.2, 0.6) + 0.4),
+        // ..rotateY(relativePos),
         // ..rotateZ(relativePos),
         alignment:
             relativePos >= 0 ? Alignment.centerLeft : Alignment.centerRight,

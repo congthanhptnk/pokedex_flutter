@@ -27,6 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _pageCtrl.dispose();
+    super.dispose();
+  }
+
+  void _handlePageChanged(Pokemons pokemons, int page) {
+    if (page == (pokemons.pokemons.length - 1)) {
+      pokemons.getAllPokemons();
+    }
+  }
+
   Widget _buildCards(BuildContext context) {
     return Consumer<Pokemons>(
       builder: (context, pokemons, child) {
@@ -34,9 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
           controller: _pageCtrl,
           scrollDirection: Axis.horizontal,
           itemCount: pokemons.pokemons.length,
-          onPageChanged: (int curIndex) {
-            if ((curIndex + 2) == pokemons.pokemons.length)
-              pokemons.getAllPokemons();
+          onPageChanged: (int page) {
+            _handlePageChanged(pokemons, page);
           },
           itemBuilder: (context, int curIndex) {
             return ScrollCard(

@@ -1,6 +1,7 @@
-# pokedex_flutter
+# Pokedex Flutter
 
-A Pokedex application built for iOS using Flutter
+A Pokedex hybrid application built for mobile devices. This project is an intensive learning project aim to master Dart language and Flutter frameworks. 
+The UI is designed based on Bulbapedia (a wikia for pokemon related content). 
 
 ## Getting Started
 
